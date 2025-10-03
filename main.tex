@@ -1,0 +1,220 @@
+%&../.preamble
+\endofdump
+
+\usetikzlibrary{external}
+\tikzset{external/system call={pdflatex --shell-escape --fmt=../.preamble --halt-on-error -jobname "\image" "\endofdump\texsource"}}
+\tikzexternalize[prefix=tikz/]
+
+\title{Marini FX linker}
+\author{Marini Mattia}
+\date{2023/2024}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+	{\large \textit{\href{https://github.com/mattia-marini/Marini-FX-linker}{{https://github.com/mattia-marini/Marini-FX-linker}}}}
+	\vskip3mm
+	\includegraphics[width=\textwidth]{images/Links.png }
+\end{center}
+\vskip3mm
+\begin{center}
+	{\large  A GUI based lua script to link FX parameters across different tracks}
+	\vskip3mm
+	\hrule
+	\vskip3mm
+	This plugin runs a backgound task that links the selected tracks, ensuring that the plugin configurations of the 2 FX chains match
+	\vskip20mm
+	Version 1.0.0
+\end{center}
+\section{Introduction}
+\vskip3mm
+\begin{minipage}[t]{0.48\textwidth}
+	\subsubsection*{Features}
+	\begin{itemize}
+		\item Linking \underline{every} parameters of \underline{every} plugin across different tracks
+		\item Linking state is saved on project basis
+		\item GUI based link managment
+		\item Multiple tabs support and hot project reloading
+		\item Flexible and roboust linking
+		\item \underline{Zero dependency script}
+	\end{itemize}
+\end{minipage}
+%
+\begin{minipage}[t]{0.48\textwidth}
+	\subsubsection*{Non-features}
+	\begin{itemize}
+		\item Single parameter or single plugin link
+		\item Does not support undo tree (cmd/z)
+		\item Gui does not support docked state yet
+		\item Parameters linking on more than 2 tracks (have 1 track control 2 or more other)
+	\end{itemize}
+\end{minipage}
+%\tableofcontents
+\newpage
+\section{Installation}
+You can installl Marini FX linker either with ReaPack or directly from source. Please note that the naming of the 3 script files may not match because of versioning.
+\subsection{With ReaPack}
+Assuming you have reapack installed correctly, proceed like follows:
+\begin{itemize}
+	\item Add a new repository by clicking on \textit{Extensions $ \rightarrow  $ ReaPack $ \rightarrow  $ Import repositories... }
+	      \begin{center}
+		      \includegraphics[width=\linewidth]{images/ReaPackInstall/1.png}
+	      \end{center}
+	\item Paste the following link and press ok:
+	      \begin{center}
+          \footnotesize
+          \verb|https://raw.githubusercontent.com/mattia-marini/Marini-Scripts/main/index.xml|
+	      \end{center}
+	      \begin{center}
+		      \includegraphics[width=\linewidth]{images/ReaPackInstall/2.png}
+	      \end{center}
+	\item Now go to  on \textit{Extensions $ \rightarrow  $ ReaPack $ \rightarrow  $ Browse packages...}
+	      \begin{center}
+		      \includegraphics[width=\linewidth]{images/ReaPackInstall/3.png}
+	      \end{center}
+	\item Search for "Marini" and the script should pop up:
+	      \begin{center}
+		      \includegraphics[width=\linewidth]{images/ReaPackInstall/4.png}
+	      \end{center}
+	\item Right click on it, press \textit{install} and then \textit{apply} at the bottom right of the window. Done!
+\end{itemize}
+\newpage
+\subsection{Without ReaPack}
+
+\begin{itemize}
+	\item First of all, download the script from the github repo: \href{https://github.com/mattia-marini/Marini-FX-linker}{\textit{https://github.com/mattia-marini/Marini-FX-linker}}.
+	      \begin{center}
+		      \includegraphics[width=\linewidth]{images/ManualInstall/1.png }
+	      \end{center}
+	      Click on \textit{Code} and then \textit{Download ZIP}
+	\item It will download a zip file. Unzip it
+	      \vskip3mm
+	      \begin{minipage}[t]{0.48\textwidth}
+		      \begin{center}
+			      \includegraphics[width = \linewidth]{images/ManualInstall/2.png }
+		      \end{center}
+	      \end{minipage}
+	      %
+	      \begin{minipage}[t]{0.48\textwidth}
+		      \begin{center}
+			      \includegraphics[width = \linewidth]{images/ManualInstall/3.png }
+		      \end{center}
+	      \end{minipage}
+	      \vskip3mm
+	\item You can now rename the folder however you want (perhaps somethin like \textit{Marini FX linker} ). You can also delete the readme.md and the Guide.pdf files, they just contain guides, but are not required by the script itself
+	      \vskip3mm
+	      \begin{minipage}[t]{0.48\textwidth}
+		      \begin{center}
+			      \includegraphics[width = \linewidth]{images/ManualInstall/4.png }
+		      \end{center}
+	      \end{minipage}
+	      %
+	      \begin{minipage}[t]{0.48\textwidth}
+		      \begin{center}
+			      \includegraphics[width = \linewidth]{images/ManualInstall/5.png }
+		      \end{center}
+	      \end{minipage}
+	\item Now we need to put the script in the correct position, so that it will be backed up with the rest of the reaper config. Open up reaper, on the menu bar go to \textit{Options $ \rightarrow  $ Show REAPER resource path in explorer/finder}. That should open the folder containing all the reaper data
+	      \vskip3mm
+	      \begin{minipage}[t]{0.48\textwidth}
+		      \begin{center}
+			      \includegraphics[width = \linewidth]{images/ManualInstall/6.png }
+		      \end{center}
+	      \end{minipage}
+	      %
+	      \begin{minipage}[t]{0.48\textwidth}
+		      \begin{center}
+			      \includegraphics[width = \linewidth]{images/ManualInstall/6.1.png }
+		      \end{center}
+	      \end{minipage}
+	\item Now drag it in the Reaper script folder
+	      \vskip3mm
+	      \begin{center}
+		      \includegraphics[width = \linewidth]{images/ManualInstall/7.png }
+	      \end{center}
+	\item To add the script in reaper go to \textit{menu bar $ \rightarrow  $ Actions $ \rightarrow  $ Show action list...}
+	      \vskip3mm
+	      \begin{center}
+		      \includegraphics[width = \linewidth]{images/ManualInstall/8.jpg }
+	      \end{center}
+	\item On the window that pops up, click \textit{New action $ \rightarrow  $ Load ReaScript...}
+	      \vskip3mm
+	      \begin{center}
+		      \includegraphics[width = \linewidth]{images/ManualInstall/10.jpg }
+	      \end{center}
+	      \begin{center}
+		      \includegraphics[width = \linewidth]{images/ManualInstall/11.png }
+	      \end{center}
+	\item Done! You
+
+	      \newpage
+	      \section{Setting up a toolbar button}
+	      To toggle the plugins UI its handy to have a toolbar button. You can also run the "\textit{Marini\_Marini FX linker\_Ui\_Toggle.lua}" script, via action menu or shorcut
+	\item Go to the \textit{main toolbar $ \rightarrow  $ right-click it $ \rightarrow  $ Customize toolbar...}:
+	      \begin{center}
+		      \includegraphics[width = 0.8\linewidth]{images/ManualInstall/12.jpg }
+	      \end{center}
+	\item On the bottom left of the window that pops up click \textit{add} and search for the action "\textit{Marini\_Marini FX linker\_Ui\_Toggle.lua}". Double click on it and apply the changes.
+	      \vskip3mm
+	      \begin{minipage}[t]{0.48\textwidth}
+		      \begin{center}
+			      \includegraphics[width = \linewidth]{images/ManualInstall/13.png }
+		      \end{center}
+	      \end{minipage}
+	      %
+	      \begin{minipage}[t]{0.48\textwidth}
+		      \begin{center}
+			      \includegraphics[width = \linewidth]{images/ManualInstall/14.png }
+		      \end{center}
+	      \end{minipage}
+	      You should now see a new toolbar item that shows/hides the plugin UI!
+\end{itemize}
+
+\newpage
+\section{How to use}
+\subsubsection*{Linking}
+\begin{itemize}
+	\item Open the UI with the toolbarButton that you just set up (or by running the \textit{Marini FX linker UI toggle.lua})
+	\item Select the 2 tracks that you want to link
+	\item Hit \textit{"link"} on the script GUI
+\end{itemize}
+The track with the lowest number will be the \underline{master track}, whereas the other one will serve as \underline{slave track}. That means that you should change the values on the first one to modify the values on both tracks, not vice versa, as it wont work \footnote{If you modify anything on the slave track it will just return to the position in which it was. The link is not bi direcional to make the linking algorithm more robust}
+\subsubsection*{Unlinking}
+\begin{itemize}
+	\item Open the UI with the toolbarButton that you just set up (or by running the \textit{Marini FX linker ui toggle.lua})
+	\item Select on the UI the pair you want to remove
+	\item Hit the \textit{"-"} button on the script GUI
+\end{itemize}
+
+Note that this script links fx parameters, not the track values themselves (volume, pan). That can be done without any extension
+
+\subsubsection*{Autostart}
+In order for the syncing to happen, the \textit{Marini\_Marini FX linker background.lua} script must be running.
+\vskip3mm
+You can start this manually each time you launch Reaper, or you could run the \textit{Marini FX linker toggle autostart.lua} script to start the aforementioned script each time Reaper starts up! Re running the autostart action will turn off autostart.
+
+\newpage
+\section{How it works}
+The linking algorithm basically links the first instances of the same plugin, without considering the order in which those are put. Suppose we have
+\begin{align*}
+	\text{ Track1:} & \left\{A_1,A_2,A_3, B_1,C,D_1\right\}     \\
+	\text{ Track2:} & \left\{A_1, A_2, B_1,D_1,D_2, E_1\right\} \\
+\end{align*}
+Then the plugin pairs to be linked would be
+\begin{gather*}
+	\left\{\text{Track1}_{A_1}, \text{Track2}_{A_1}\right\}\\
+	\left\{\text{Track1}_{A_2}, \text{Track2}_{A_2}\right\}\\
+	\left\{\text{Track1}_{B_1}, \text{Track2}_{B_1}\right\}\\
+	\left\{\text{Track1}_{D_1}, \text{Track2}_{D_1}\right\}
+\end{gather*}
+
+so the following fx remain unlinked:
+\begin{gather*}
+	\text{Track1}_{A_3}, \quad \text{Track1}_{C_1}\\
+	\text{Track2}_{D_2}, \quad \text{Track2}_{E_1}
+\end{gather*}
+
+Long story short, that means that \underline{if the 2 fx chains are the same, then every fx will be linked}. If not, only common FX will be linked
+
+\end{document}
